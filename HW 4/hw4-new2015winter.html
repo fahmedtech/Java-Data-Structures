@@ -1,0 +1,136 @@
+
+<!-- saved from url=(0074)http://condor.depaul.edu/ntomuro/courses/300/assign/hw4-new2015winter.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.style1 {
+	text-decoration: underline;
+}
+.style2 {
+	border-style: solid;
+	border-width: 1px;
+}
+.style3 {
+	border-style: dotted;
+	border-width: 2px;
+}
+</style>
+<style type="text/css"></style></head>
+
+<body bgcolor="#FFFFFF">
+
+<h3 align="center"><b>CSC 300 Data Structures in Java I</b><br>
+Homework #4<br>
+Due: February 10 (Tue) 11:59 pm<br>
+</h3>
+<p>This assignment consists of three parts.&nbsp; You must do all three.</p>
+<hr>
+<h3><span class="style1">Part 1</span>: Class Tile and Applilcation (in 
+"Tile.java" -- you start from scratch)</h3>
+[This part is a modification
+of
+<a href="http://www.greenteapress.com/thinkapjava/html/thinkjava013.html#toc111">
+Exercises 11.15</a> in "<a href="http://www.greenteapress.com/thinkapjava/html/index.html">Think 
+Java -- How to Think Like a Computer Scientist</a>", Exercise 1.]
+<p>Write a definition of a class named <strong>Tile</strong> that represents a 
+Scrabble tile<strong> (in "Tile.java")</strong>. </p>
+<ul>
+	<li>The instance variables should be a character named&nbsp;letter&nbsp;and an integer 
+	named&nbsp;value.&nbsp; Note the data type for a character is <em>char</em>.</li>
+	<li>The constructor takes parameters named&nbsp;'let'&nbsp;and&nbsp;'val'&nbsp;and 
+	initializes the instance variables.&nbsp; </li>
+	<li>The getLetter() and getValue() methods.&nbsp; Both should be obvious.</li>
+	<li>The toString() method returns a string which shows the instance variables in 
+	the form "K, 5".</li>
+	<li>The static method main() which creates two Tile 
+	objects -- one for 'K' (and its value 5) and 'X' (and its value 8), and call 
+	toString() in each object to print the objects to System.out.</li>
+</ul>
+<hr>
+<h3><span class="style1">Part 2</span>: Class RandomBag (in 
+<a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw4newRandomBagfiles/RandomBag.java">"RandomBag.java"</a>)</h3>
+<p>[This part is a modification of
+<a href="https://books.google.com/books?id=idUdqdDXqnAC&pg=PA167&lpg=PA167&dq=randombag.java+algorithms&source=bl&ots=ZZv-39einT&sig=ZaKdOW21TL_MVKFo_heguCvpwkQ&hl=en&sa=X&ei=0L_OVImrOc-uyASn4YGIBQ&ved=0CDUQ6AEwBQ#v=onepage&q=randombag.java%20algorithms&f=false">
+problem 1.3.34 (Random bag)</a> in our textbook 
+<a href="http://proquestcombo.safaribooksonline.com/book/software-engineering-and-development/algorithms/9780132762571">"Algorithms" 
+by Sedgewick &amp; Wayne</a>.]</p>
+<p>Complete the class RandomBag by adding the following three methods.&nbsp; 
+This class is very similar to the
+<a href="http://condor.depaul.edu/ntomuro/courses/300/notes/lecture8-new-iterator.html">
+class Bag&lt;Item&gt; shown in the class</a>, stores a collection of items in an array 
+and, in addition to the standard methods such as add() and size(), it allows the 
+client to pick an&nbsp; item randomly (and the item is removed from the bag). </p>
+<pre class="style2">public class RandomBag&lt;E&gt; implements Iterable&lt;E&gt; {
+
+  private int N;    // number of elements in bag
+  private E data[]; // data storage of this bag
+
+  private Random rand; // random number generator
+
+  public RandomBag() {
+    N = 0;                      // no element
+    data = (E[]) new Object[1]; // but physical storage of length 1
+    rand = new Random(System.currentTimeMillis()); // random number generator
+  }
+  ...</pre>
+<p>The three methods to write:</p>
+<ul>
+	<li><strong>public void shuffle() <br></strong>-- shuffles the items (in 
+	'data').&nbsp; Shuffling should be done by selecting <strong>two items 
+	randomly</strong> at a time 
+	and swap them (in the array), and repeat the procedure for 'N' number of 
+	times (where N is the number of items stored in the array).&nbsp; To select 
+	an item, you randomly generate an integer using the member variable 'rand', 
+	for example by</li>
+	<pre class="style2">int idx = rand.nextInt(N); //&nbsp;an int between 0 (inclusive) and N (exclusive) </pre>
+	<li><strong>public E randomRemoveOne()</strong><br>-- picks an element randomly and returns 
+	it.&nbsp; Random selection should be done in the same way as shuffle().&nbsp; 
+	Before returning the item, the slot in the array for the selected item has 
+	to be 'covered' by shifting the remaining elements one slot to the left.&nbsp; 
+	For example,
+	<pre class="style2">Len=8, N=7: [ gg cc aa ff dd ee bb ]
+
+Removed: aa
+Len=8, N=6: [ gg cc ff dd ee bb ]</pre>
+	</li>
+	<li><strong>public void trimToSize()</strong><br>-- trims the trailing 
+	unused space by re-allocating the array (i.e., obtaining a new array) that 
+	holds exactly N elements and transfer over the existing items to the new 
+	array (and set 'data' to the new array)</li>
+</ul>
+<p>Write your code in the file indicated with:</p>
+<pre>  //
+  // WRITE YOUR CODE HERE
+  //</pre>
+<p>After writing your three functions, compare the output with the one shown at 
+the end of the file.&nbsp; Since the random number generator generates different 
+numbers, so your output will be different from what's shown there.&nbsp; However 
+you should be able to verify your output. </p>
+<hr>
+<h3><span class="style1">Part 3</span>: Application program (in "TinyTileApp.java" 
+-- you start from scratch)</h3>
+<p>Write an application program which uses the Tile and RandomBag classes.&nbsp; 
+The program should do the following, in this order.</p>
+<ul>
+	<li>Create an RandomBag object which stores Tile objects (thus 
+	the data type would be RandomBag&lt;Tile&gt;).</li>
+	<li>Add the following tiles in the bag -- 'E' (value 1, add 2 of them), 'A' 
+	(value 1, add 2 of them), 'I' (value 1, add 1 of them), 'R' (value 1, add 1 
+	of them), 'C' (value 3, add 1 of them), 'P' (value 3, add 1 of them),&nbsp; 
+	'K' (value 5, add 1 of them), 'J' (value 3, add 1 of them).</li>
+	<li>Select 3 tiles randomly and create a String from those tiles (in the 
+	order they were selected). Then display the string AND the string's (total) 
+	value to System.out.&nbsp; Below is a sample run.
+	<pre class="style3">   KCA -- 9</pre>
+	
+</li></ul>
+
+
+<hr>
+<h3>Submission</h3>
+<p>Zip the three files into one zip file (which you can name as you wish), and 
+submit the zip file on D2L as usual.</p>
+
+
+
+
+</body></html>

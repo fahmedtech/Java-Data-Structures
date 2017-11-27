@@ -1,0 +1,177 @@
+import java.util.Iterator;
+
+public class LinkedList<E extends Comparable<E>> implements Iterable<E>
+{
+  // instance data members of list
+  private Node head; // reference to the first node
+  private int N;     // number of elements stored in the list
+
+  /*******************
+   * nested class Node
+   *******************/
+  private class Node
+  {
+    // instance data members of Node
+    public E item;
+    public Node next;
+
+    // constructors for Node
+    public Node()
+    {
+      item = null;  next = null;
+    }
+
+    public Node(E e, Node ptr)
+    {
+      item = e;  next = ptr;
+    }
+  }// end class Node
+
+  /***************************
+   * nested class ListIterator
+   ***************************/
+  private class ListIterator implements Iterator<E>
+  {
+    // instance data member of ListIterator
+    private Node current;
+
+    // constructors for ListIterator
+    public ListIterator()
+    {
+      current = head; // head in the enclosing list
+    }
+
+    public boolean hasNext()
+    {
+      return current != null;
+    }
+
+    public E next()
+    {
+      E ret = current.item;
+      current = current.next;
+      return ret;
+    }
+
+    public void remove() { /* omitted because optional */ }
+
+  }// end class ListIterator
+
+  /***** back to class LinkedList *******/
+  public LinkedList()
+  {
+    head = null; N = 0;
+  }
+
+  public Iterator<E> iterator( )
+  {
+    return new ListIterator();
+  }
+
+  public void add(E e)
+  {
+    // This code will be edited during the class.
+    // For now, it pushes a new node in the front.
+    // But first check the parameter is null.. if so, throw an exception.
+    if (e == null)
+      throw new NullPointerException();
+
+    // For now, the element is pushed in the front, and N is incremented.
+    head = new Node(e, head);
+    ++N;
+  }
+
+  public void remove(E e)
+  {
+    // This code will be edited during the class.
+    // Removes the node with the parameter item if it exists, and decrements N.
+    // Does nothing if the item doesn't exist, or the list is empty.
+    // Throws a NullPointerException if the parameter item is null.
+  }
+
+  public boolean isEmpty() { return N == 0; }
+  public int size() { return N; }
+
+  //********************************************
+  //  WRITE YOUE CODE BELOW
+  //********************************************
+
+  public void append(E item)
+  {
+    // YOU WRITE THIS METHOD (1)
+  }
+
+  public boolean contains(E item)
+  {
+    // YOU WRITE THIS METHOD (2)
+    // for now
+    return false;
+  }
+
+  public E get(int k)
+  {
+    // YOU WRITE THIS METHOD (3)
+    // for now
+    return null;
+  }
+
+  public void removeAt(int k)
+  {
+    // YOU WRITE THIS METHOD (4)
+  }
+
+  public void clear()
+  {
+    // YOU WRITE THIS METHOD (5)
+  }
+
+
+
+
+
+  /**
+   * main()
+   */
+  public static void main(String[] args)
+  {
+    String names[ ] = {"Uno", "Dos", "Tres", "Cuatro", "Cinco"};
+    LinkedList<String> lst = new LinkedList<String>();
+
+    for (String s : names)
+      lst.add(s); // add in the Bag
+
+    // (1) Use an Iterator to iterate/traverse the bag
+    System.out.print("Print using iterator --  ");
+    Iterator<String> it = lst.iterator();
+    while (it.hasNext())
+    {
+      String n = it.next();
+      System.out.printf("%s ", n);
+    }
+    System.out.printf("%n%n");
+
+    // (2) Another way by the for-each syntax
+    System.out.print("Print using foreach  --  ");
+    for (String n : lst)
+      System.out.printf("%s ", n);
+    System.out.printf("%n%n");
+
+    try {
+      lst.add(null);
+    } catch (NullPointerException exp)
+    {
+      System.out.println("NullPointerException thrown");
+    }
+
+  } // end main
+} // end class
+
+/* Output
+
+Print using iterator --  Cinco Cuatro Tres Dos Uno
+
+Print using foreach  --  Cinco Cuatro Tres Dos Uno
+NullPointerException thrown
+
+*/
+

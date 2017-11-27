@@ -1,0 +1,160 @@
+
+<!-- saved from url=(0074)http://condor.depaul.edu/ntomuro/courses/300/assign/hw3-new2015winter.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>300 Homework #2</title>
+<style type="text/css">
+.style1 {
+	text-decoration: underline;
+}
+.style2 {
+	margin-left: 40px;
+}
+.style3 {
+	vertical-align: baseline;
+	border-style: solid;
+	border-width: 2px;
+}
+</style>
+<style type="text/css"></style></head>
+
+<body bgcolor="#FFFFFF">
+
+<h3 align="center"><b>CSC 300 Data Structures in Java I</b><br>
+Homework #3<br>
+Due: January 29 (Thu) 11:59 pm<br>
+</h3>
+
+<h3>Class MyLoan -- in "MyLoan.java"</h3>
+The class MyLoan should have the following members:
+<blockquote>
+	<b>Private instance variables:</b> 	<ul>
+		<li>double amountBorrowed -- the principal amount of the loan.		 
+		</li>
+		<li>double yearlyRate -- the annual interest rate of the loan. A rate of 
+		7.25% for example must be stored as 7.25.		 </li>
+		<li>int years -- the number of years on the loan.</li>
+	</ul>
+	<b>Constructor</b>
+	<ul>
+		<li>public MyLoan( ) -- Initializes all instance variables to 0</li>
+		<li>public MyLoan( double amt, double rt, int yrs) -- Initialize the 
+		instance variables using the parameters.</li>
+	</ul>
+	<b>Public instance methods</b>
+	<ul>
+		<li>public double getAmountBorrowed()		 </li>
+		<li>public double getYearlyRate()		 </li>
+		<li>public int getYears()		 </li>
+		<li>public double monthlyPayment() -- This method should return the 
+		monthly payment. Use the following formula to compute this amount. </li>
+		<p><img height="33" src="./HW3_files/clip_image002.png" width="118"></p>where
+		<strong>A</strong> is the amount of monthly payment, <b>P </b>is the amount borrowed, <b>i </b>is the <i>
+		monthly rate</i> (= <b><font color="#ff0000">(yearlyRate / 100) / 12</font></b>) 
+		and <b>n </b>is the <i>number of payments</i> (= <b>
+		<font color="#ff0000">years * 12</font></b>).&nbsp;
+		For example a person borrowing $100000 at a rate of 6.25% for 30 years 
+		should have a monthly payment which is around $615.) 
+		<li>public double totalPayment() -- This method should return the total 
+		amount paid to the bank (= the monthly payment * the <i>number of 
+		payments</i>).    	 </li>
+		<li>public String toString() -- This method will return as a String the 
+		instance variables in the following form (<b>including the $ symbol/char 
+		and exactly two decimal digits</b>). 
+		Using the above example:      	 
+	<div align="left">
+		<pre align="left">   Loan: $100,000.00 at 6.25% for 30 years</pre>
+	</div>
+	<div align="left">
+		<p>To obtain a String with two decimal digits (similar to how we did using 
+		printf)… the way is to use a static method defined in Java String class 
+		called “format” (<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html">http://docs.oracle.com/javase/7/docs/api/java/lang/String.html</a>) 
+		and pass in a format string “%.2f” and the (instance) variable which you 
+		want to be printed (in a string) with two decimal digits. So for 
+		example, </p>
+		<p>String temp1 = <b>String.format(“$%.2f”, </b>amountBorrowed); // 
+		temp1 is "$2.48" if amountBorrrowed is 2.48 </p>
+		<p>Then you can concatenate several strings or other values to make one long 
+		string by using a + operator. For example,</p><pre>  String sj = "Java";
+int val = 7;
+  String ret = "This is " + sj + " " + val; // "This is Java 7"</pre>
+		</div></li>
+	</ul>
+<hr>
+<h3>Client Program as a Unit Test (in main()<span style="font-weight: 400">)</span></h3>
+<ul>
+	<li>
+	<p align="left">Write code in main() which does the following.&nbsp; It's 
+	mean to be an client/application program, but placed in main() for now to 
+	simplify the scheme, just for&nbsp; the purpose of mechanics.&nbsp; 
+&nbsp;</p></li>
+	<li>
+	<p align="left">This application simulates a Loan specialist. The specialist 
+	has two pre-set interest rates: one for 15 years and another for 30 years. 
+	They should be declared as constants RATE15 (= <b><font color="#FF00FF">5.75</font></b>) and RATE30 
+	(= <font color="#FF00FF">6.25</font>) in the application. 
+	The application/specialist asks the user/customer for the principal amount 
+	to borrow, and displays the monthly payment and the total payment for both 
+	15 and 30 years (i.e., what-if scenarios).&nbsp; </p>
+	<p>Below is the sample output of a session. The part where the user entered 
+	is indicated in bold.</p>
+	
+		<div style="border-style: dashed; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+			<pre>***** Welcome to the Loan analyzer! *****
+
+  Enter the principle amount to borrow: <b>100000</b>
+
+  ============ ANALYSES ============
+  Loan: $100000.0 at 5.75% for 15 years
+  Monthly payment = $830.41
+  Total payment = $149473.82
+
+  Loan: $100000.0 at 6.25% for 30 years
+  Monthly payment = $615.72
+  Total payment = $221658.19
+  ==================================
+
+      ** Do you want to continue (y/n)? y
+
+  Enter the principle amount to borrow: <b>150000</b>
+
+  ============ ANALYSES ============
+  Loan: $150000.0 at 5.75% for 15 years
+  Monthly payment = $1245.62
+  Total payment = $224210.72
+
+  Loan: $150000.0 at 6.25% for 30 years
+  Monthly payment = $923.58
+  Total payment = $332487.29
+  ==================================
+
+      ** Do you want to continue (y/n)? n
+
+********** Thank you. Come again! **********</pre>
+		</div>
+	
+	</li>
+	<li><u>REQUIREMENTS:</u> 	
+	<ol>
+		<li>Create <b>two MyLoan objects</b> -- one for the 15 year loan, and 
+		another for the 30 year loan, in every session.</li>
+		<li>Print the first line of the analysis for each Loan by <b>calling the 
+		toString() method</b>. </li>
+		<li>The monthly and total payments must be obtained by <b>calling the 
+		monthlyPayment() and totalPayment() methods</b> respectively (and in no 
+		other way).&nbsp; And those values must be printed with <strong>two 
+		decimal digits</strong> (and followed by a $).</li>
+		<li>Repeat the session as long as the user wants.</li>
+	</ol>
+	</li>
+</ul>
+<p class="style2">Receive input from the keyboard, and display the output to the terminal&nbsp; Also 
+you can assume the user will enter valid values at the prompts.</p>
+</blockquote>
+
+<hr noshade="noshade">
+<h3>Submission</h3>
+<p>Submit "MyLoan.java"in the 
+	HW#2 dropbox on D2L.</p>
+
+
+</body></html>

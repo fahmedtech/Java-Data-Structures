@@ -1,0 +1,235 @@
+
+<!-- saved from url=(0074)http://condor.depaul.edu/ntomuro/courses/300/assign/hw6-new2015winter.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>300 Homework #6</title>
+<style type="text/css">
+.auto-style1 {
+	font-size: larger;
+}
+.style5 {
+	text-align: left;
+}
+
+a {
+  text-decoration: none;
+}
+
+i { font-weight: bold; }
+
+pre.plain {
+  color: blue;
+}
+
+
+
+pre.plain {
+	border-style: none;
+}
+
+pre {
+  font-family: courier new;
+}
+
+pre { color: rgb(20,20,230); }
+
+ol li {
+       list-style-type: decimal;
+}
+
+.indent {
+        margin: 12pt;
+}
+.style6 {
+	color: rgb(0, 0, 0);
+	border-style: solid;
+	border-width: 1px;
+}
+.style7 {
+	color: rgb(0, 0, 0);
+}
+.style9 {
+	color: #FF0000;
+	font-weight: bold;
+}
+</style>
+<style type="text/css"></style></head>
+
+<body bgcolor="#FFFFFF">
+
+<h3 align="center"><b>CSC 300 Data Structures in Java I</b><br>
+Homework #6<br>
+Due: Mar 12 (Thu) 11:59 pm</h3>
+      <p>
+	This assignment is an application using a stack. You will use the <strong>Java API</strong> has 
+	  a <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Stack.html">
+	  generic <strong>Stack class</strong></a> (in java.util.Stack).
+      </p>
+<ul>
+	<li>Write a class <strong>BalancedApp</strong> with a static main method that will parse an
+input file to check that it has properly balanced curly braces,
+square brackets, and parentheses - '{', '}', '[', ']', '(', and
+	')'. These characters will be referred to as <i>delimiters</i>.
+</li>
+	<li>What does <i>properly balanced</i> mean? It means when
+	examining the characters of the file when the <i>closing</i> delimiter
+	']', is encountered, the most recently seen <i>unmatched opening</i>
+      delimiter should be the matching one, '[' and similarly for the
+	other delimiters. (See examples below.)</li>
+	<li>Your program should read data from an <strong>input file</strong>, and 
+displays the output to the terminal.&nbsp; <br>There are four short sample input files 
+(<a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw6files/test1.txt">"test1.txt</a>", 
+	<a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw6files/test2.txt">"test2.txt"</a>, 
+	<a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw6files/test3.txt">"test3.txt"</a>, 
+	<a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw6files/test4.txt">"test4.txt"</a>), which are zipped in
+	<a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw6files/hw6Data.zip">this 
+zip file </a>.</li>
+</ul>
+<hr>
+<h3>Details of the program</h3>
+<p>Your program (which you write in main() and any additional static method(s) 
+you create as you wish) reads in one line at a time from the input file, and 
+process the characters in the line.&nbsp; You continue until all lines in the 
+input file are read and processed.</p>
+<p>As each line is read, your program must also prints the line to the terminal 
+with a <strong>line number</strong> (1-based).&nbsp; Then after all lines are 
+(processed and) printed, you display the verdict -- the input is balanced, or 
+any error is detected.</p>
+For example, the file test1.txt contains:
+<pre class="plain">This file has balanced curly braces, square brackets
+and parentheses: {}, [] and (). [Note that these
+characters are not required to balance on the
+same line, as long as there is a matching closing character.]
+</pre>
+      <p>
+	  Your output should be:</p>
+<pre class="plain">   1. This file has balanced curly braces, square brackets
+  2. and parentheses: {}, [] and (). [Note that these
+  3. characters are not required to balance on the
+  4. same line, as long as there is a matching closing character.]
+
+Input is balanced.</pre>
+
+<p>
+because the delimiters in the file are balanced.&nbsp; But some files may be 
+unbalanced.. there are three error cases as shown below.&nbsp; For each error 
+case, you must print detailed error information, in particular the line number 
+where the (un-)matching opening delimiter was.
+</p>
+<ol>
+<li> An additional closing character - '}', ']', or ')' - when the preceding text
+is balanced, ad there is an extra closing character (of any kind).
+<pre class="plain">File test2.txt:
+[This ({line} is balanced) ],
+but this character ] is not.
+--------------------------------
+
+Output:
+
+  1. [This ({line} is balanced) ],
+  2. but this character ]
+
+Error: Line 2. Closing character ']', with no matching opening character.</pre>
+
+<p><i>The line numbers for the output and the reference to the Line number
+in the Error message are also required. See Implementation
+Hints below.</i></p>
+</li>
+<li> A closing character which does not match the most recent
+unmatched opening character.
+<pre class="plain">File test3.txt:
+(This left parenthesis
+is not "closed"! [Balanced
+square brackets], then a } 
+at the end.
+-----------------------------
+Output:
+
+  1. (This left parenthesis
+  2. is not "closed"! [Balanced
+  3. square brackets], then a }
+Error: Line 3. Symbol '}' is the wrong closing symbol  for char = '(', line 1</pre>
+</li>
+<li> End of file reached but with an opening character still not
+matched.
+<pre class="plain">File test4.txt:
+Opening square
+bracket, [, is not matched
+when end of file reached.
+--------------------------
+Output:
+
+  1. Opening square
+  2. bracket, [, is not matched
+  3. when end of file reached.
+
+Error: At end of file, no closing symbol found for char = '[', line 2</pre>
+</li>
+</ol>
+<p>The error message has to be as SPECIFIC as possible, at least the level 
+above, including the line number where the error was encountered and the 
+unmatched left delimiter character.</p>
+<hr>
+<h3>Implementation Hints</h3>
+
+To read from an input file, there are several things to set up in the code.&nbsp; 
+You also read one line at a time from the file foe this program.&nbsp; To do so,
+ you can use a Scanner object and connect it to the file (through a FileReader 
+object), and call next Line() to read in the next/one line.&nbsp; Your program 
+can start like this.<pre class="style6"><span class="style7">import java.util.Stack;</span>
+import java.util.Scanner;// (*)
+import java.io.*;        // (*)
+
+public class BalancedApp
+{
+  public static void main(String[] args) throws FileNotFoundException // (*)
+  {
+    Stack&lt;DelimPos&gt; st = new Stack&lt;DelimPos&gt;(); // a stack of DelimPos objects
+
+    Scanner fin = new Scanner(new FileReader("test1.txt")); // (*)
+    String s;
+    while (fin.hasNext()) // read until there's more to read,
+    {
+      s = fin.nextLine(); // read the next line
+
+</pre>
+<p>
+Then for each line read (into a String), you traverse the string and examine 
+each character.&nbsp; To do so, you can call the string methods length() and 
+charAt().&nbsp; For example,</p>
+<pre class="style6"><span class="style7">      for (int i = 0; i &lt; s.length(); ++i) {</span>
+        char ch = s.charAt(i);
+        ...
+     }</pre>
+<hr>
+<h3>
+Algorithm</h3>
+<p>
+Use a stack to keep track of the opening symbols - '{', '[',
+'('. You will need to also keep track of line number where these
+	  symbols appeared. So it will be a good idea to create a class
+	  to represent the information you will need to push onto the
+	  stack when an <i>opening</i> symbol is read. For now I'll call this
+	  class <span class="style9">DelimPos</span>.&nbsp; YOU HAVE TO WRITE THIS 
+CLASS (in addition to the application class <strong>BalancedApp.</strong></p>
+
+<pre class="plain">Stack&lt;DelimPos&gt; s = new Stack&lt;DelimPos&gt;();
+
+s.push(new DelimPos(...));   
+</pre>
+<p> To print line numbers and also have the error message
+reference a previous line number where an opening symbol occurred,
+the DelimPos instances will minimally need to 
+contain both the opening delimiter character and the line number
+where it occurred. It might also be useful for the DelimPos class to
+	  have a method to provide the matching closing character for 
+	  DelimPos instances.</p>
+
+
+
+
+<hr class="style5" noshade="noshade">
+<p><span class="auto-style1"><strong>Submission</strong></span>: "BalancedApp.java" 
+and "DelimPos.java" on the D2L submission bin (HW6) as usual</p>
+
+
+</body></html>

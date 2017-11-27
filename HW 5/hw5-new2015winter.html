@@ -1,0 +1,182 @@
+
+<!-- saved from url=(0074)http://condor.depaul.edu/ntomuro/courses/300/assign/hw5-new2015winter.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.style1 {
+	border-style: dotted;
+	border-width: 1px;
+}
+.style2 {
+	color: #FF0000;
+}
+.auto-style1 {
+	color: #FF00FF;
+}
+</style>
+<style type="text/css"></style></head>
+
+<body bgcolor="#FFFFFF">
+
+<h3 align="center"><b>CSC 300 Data Structures in Java I</b><br>
+Homework #5<br>
+Due: February <span class="style2">28 (Sat)</span> 11:59 pm<br>
+</h3>
+<p>Do both of the following two things.</p>
+<ol>
+	<li>For the class LinkedList shown in the lecture note #7, add some 
+	specified methods.&nbsp; Details below.</li>
+	<li>Write your own test program, in a separate class "LLtest.java".</li>
+</ol>
+<hr>
+<h3>Class LinkedList (in <a href="http://condor.depaul.edu/ntomuro/courses/300/assign/hw5files/LinkedList.java">"LinkedList.java"</a>)</h3>
+<div style="border-style: solid; border-width: 1px; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px">
+	<pre>public class LinkedList&lt;E extends Comparable&lt;E&gt;&gt; implements Iterable&lt;E&gt;
+{
+  // instance data members of list
+  private Node head; // reference to the first node
+  private int N;     // number of elements stored in the list
+
+  /*******************
+   * nested class Node
+   *******************/
+  private class Node
+  {
+    // instance data members of Node
+    public E item;
+    public Node next;
+
+    // constructors for Node
+    public Node()
+    {
+      item = null;  next = null;
+    }
+
+    public Node(E e, Node ptr)
+    {
+      item = e;  next = ptr;
+    }
+  }// end class Node
+
+  /***************************
+   * nested class ListIterator
+   ***************************/
+  //...omitted for brevity
+  /***** back to class LinkedList *******/
+
+  public LinkedList()
+  {
+    head = null; N = 0;
+  }
+
+  public Iterator&lt;E&gt; iterator( )
+  {
+    return new ListIterator();
+  }
+
+  public void add(E item)
+  {
+    //...omitted; worked out in the class
+  }
+
+  public void remove(E item)
+  {
+    //...omitted; worked out in the class
+  }
+
+  public boolean isEmpty() { return N == 0; }
+  public int size() { return N; }
+
+  //********************************************
+  //  WRITE YOUE CODE BELOW
+  //********************************************
+
+  public void append(E e)
+  {
+    // YOU WRITE THIS METHOD (1)
+  }
+
+  public boolean contains(E e)
+  {
+    // YOU WRITE THIS METHOD (2)
+  }
+
+  public E get(int k)
+  {
+    // YOU WRITE THIS METHOD (3)
+  }
+
+  public void removeAt(int k)
+  {
+    // YOU WRITE THIS METHOD (4)
+  }
+
+  public void clear()
+  {
+    // YOU WRITE THIS METHOD (5)
+  }
+
+  //...</pre>
+</div>
+<ol>
+	<li><strong>public void append(E e)</strong> -- Appends the 
+	specified/parameter element to the end of this list.&nbsp; If the parameter 
+	is null, the method throws a NullPointerException (and returns).&nbsp; After 
+	the successful insertion, the method also increments N (the number of 
+	elements in the list).&nbsp; Be careful when the list is empty.</li>
+	<li>&nbsp;<strong>public boolean contains(E e)</strong> -- Returns&nbsp;true&nbsp;if 
+	this list contains the specified element, or false otherwise.&nbsp; If the 
+	parameter is null, the method throws a NullPointerException (and returns).&nbsp; 
+	The comparison was done using equals().</li>
+	<li><strong>public E get(int k)</strong> -- Returns the element at the 
+	specified position in this list.&nbsp; The position (k) is a 0-based index.&nbsp; 
+	For example, if the list contained &nbsp;[4, 8,&nbsp;2, 7] and get(1) is called in 
+	this list, the method returns the element 8.&nbsp; The method also throws an
+	<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html">
+	IndexOutOfBoundsException</a>&nbsp;if the index is out of range (k &lt; 0 || k &gt;= 
+	size()). </li>
+	<li><strong>public void removeAt(int k)</strong> -- Removes the element at 
+	the specified position in this list (and decrements N).&nbsp; The position 
+	(k) is a 0-based index.&nbsp; For example, if the list contained &nbsp;[4, 8,&nbsp;2, 
+	7] and remove(1) is called, the method changes the list to [4,&nbsp;2, 7].&nbsp; 
+	The method also throws an
+	<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html">
+	IndexOutOfBoundsException</a>&nbsp;if the index is out of range (k &lt; 0 || k &gt;= 
+	size()).</li>
+	<li>&nbsp;<strong>public void clear(</strong>) -- Sets head to null and N to 
+	0.</li>
+	<li><span class="style2"><strong>[Extra Credit] ADD THIS BY YOURSELF</strong></span><br>
+	<strong>public E max()</strong> -- Returns the maximum element in the list 
+	if the list is not empty, or null if empty list.&nbsp; The comparison 
+	between elements has to be done by compareTo().</li>
+</ol>
+<hr>
+<h3>Test Program (in "LLtest.java")</h3>
+<p>Write your own program (a separate class with main()) which tests the methods 
+you wrote.&nbsp; Requirements.</p>
+<ul>
+	<li>Call each function <strong>at least three times</strong>: a 'normal' 
+	case (e.g. with a valid parameter), a boundary case (e.g. the list is empty 
+	or has one element), and an erroneous case (e.g., n invalid parameter, cases 
+	when an exception is thrown).</li>
+	<li>Display each result to System.out, showing the expected correct result 
+	was obtained.</li>
+</ul>
+<p>As a hint, you can catch an exception by wrapping the critical call in a 
+try-catch block.&nbsp; For example,</p>
+<pre class="style1">    try {
+      lst.add(null);
+    } catch (NullPointerException exp)
+    {
+      System.out.println("NullPointerException thrown");
+    }</pre>
+
+
+<hr>
+<h3>Submission</h3>
+<p>Zip the two files into one zip file (which you can name as you wish), and 
+submit the zip file on D2L as usual.</p>
+
+
+
+
+</body></html>
